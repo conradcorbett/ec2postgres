@@ -27,7 +27,7 @@ gitloc='git://git.postgresql.org/git/postgresql.git'
 # $sysuser is the system user for running PostgreSQL
 sysuser='postgres'
 # $helloscript is the sql script for creating the PSQL user and creating a database.
-helloscript='/home/leewalker/scripts/hello.sql'
+#helloscript='/home/leewalker/scripts/hello.sql'
 # $logfile is the log file for this installation.
 logfile='psqlinstall-log'
 
@@ -35,11 +35,19 @@ logfile='psqlinstall-log'
 
 # Ensures the server is up to date before proceeding.
 #echo "Updating server..."
+sleep 15
 sudo apt-get update -y >> $logfile
 
 # This for-loop will pull all packages from the package array and install them using apt-get
 echo "Installing PostgreSQL dependencies"
-sudo apt-get -y install git gcc tar gzip libreadline5 make zlib1g zlib1g-dev flex bison perl tcl python3 gettext odbc-postgresql libreadline6-dev
+sudo apt-get -y install git gcc tar gzip libreadline5 
+sleep 5
+sudo apt-get -y install make zlib1g zlib1g-dev flex
+sleep 5
+sudo apt-get -y install bison perl python3 tcl
+sleep 5
+sudo apt-get -y install gettext odbc-postgresql libreadline6-dev
+sleep 5
 
 # Section 3 - Create required directories
 
