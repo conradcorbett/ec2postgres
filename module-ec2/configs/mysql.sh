@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash
 
 # This script is for use with the DevOps Challenge of installing PostgreSQL 9.6 on to a provisioned AWS EC2 instance running Ubuntu.
 
@@ -39,7 +39,7 @@ logfile='psqlinstall-log'
 
 # This for-loop will pull all packages from the package array and install them using apt-get
 echo "Installing PostgreSQL dependencies"
-sudo apt-get install git gcc tar gzip libreadline5 make zlib1g zlib1g-dev flex bison perl python3 tcl gettext odbc-postgresql libreadline6-dev -y >> $logfile
+sudo apt-get install git gcc tar gzip libreadline5 make zlib1g zlib1g-dev flex bison perl python3 gettext odbc-postgresql libreadline6-dev -y >> $logfile
 
 # Section 3 - Create required directories
 

@@ -68,10 +68,28 @@ resource "aws_instance" "instance" {
   tags                        = var.tags
   user_data                   = templatefile("${path.module}/configs/${var.name}.tpl", { vm_name = var.name })
 
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("~/awskey.pem")
+    host        = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh",
+      "sudo chmod +x /home/ubuntu/mysql.sh",
+      "sudo ./mysql.sh"
+    ]
+  }
+
+
+
+/*
   provisioner "local-exec" {
     command = "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh"
   }
-/*
+
   provisioner "local-exec" {
     command = <<-EOT
 
