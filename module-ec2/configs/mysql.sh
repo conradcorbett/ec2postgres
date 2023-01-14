@@ -35,11 +35,11 @@ logfile='psqlinstall-log'
 
 # Ensures the server is up to date before proceeding.
 #echo "Updating server..."
-#sudo apt-get update -y >> $logfile
+sudo apt-get update -y >> $logfile
 
 # This for-loop will pull all packages from the package array and install them using apt-get
 echo "Installing PostgreSQL dependencies"
-sudo apt-get install git gcc tar gzip libreadline5 make zlib1g zlib1g-dev flex bison perl python3 gettext odbc-postgresql libreadline6-dev -y >> $logfile
+sudo apt-get -y install git gcc tar gzip libreadline5 make zlib1g zlib1g-dev flex bison perl tcl python3 gettext odbc-postgresql libreadline6-dev
 
 # Section 3 - Create required directories
 
@@ -63,7 +63,7 @@ git clone $gitloc >> $logfile
 
 # Configuring PostgreSQL to be installed at /postgres with a data root directory of /postgres/data
 echo "Configuring PostgreSQL"
-~/postgresql/configure --prefix=$rfolder --datarootdir=$dfolder >> $logfile
+sudo ~/postgresql/configure --prefix=$rfolder --datarootdir=$dfolder >> $logfile
 
 echo "Making PostgreSQL"
 make >> $logfile
