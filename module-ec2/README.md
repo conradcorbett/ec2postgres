@@ -1,0 +1,1 @@
+This module creats an EC2 VM. Uses cloudinit to do some basic customization to the VM as it is created. 
