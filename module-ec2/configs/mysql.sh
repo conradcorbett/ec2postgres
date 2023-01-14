@@ -34,8 +34,8 @@ logfile='psqlinstall-log'
 # Section 2 - Package Installation
 
 # Ensures the server is up to date before proceeding.
-echo "Updating server..."
-sudo apt-get update -y >> $logfile
+#echo "Updating server..."
+#sudo apt-get update -y >> $logfile
 
 # This for-loop will pull all packages from the package array and install them using apt-get
 echo "Installing PostgreSQL dependencies"
@@ -110,9 +110,9 @@ echo "Wait for PostgreSQL to finish starting up..."
 sleep 5
 
 # The hello.sql script is ran to create the user, database, and populate the database.
-wget -O hello1.sql https://raw.githubusercontent.com/theleewalker/PSQL-BASH-Install/master/hello.sql
-echo "Running script"
-$rfolder/bin/psql -U postgres -f hello1.sql
+#wget -O hello1.sql https://raw.githubusercontent.com/theleewalker/PSQL-BASH-Install/master/hello.sql
+#echo "Running script"
+#$rfolder/bin/psql -U postgres -f hello1.sql
 
 
 # Section 9 - hello_postgres is queried

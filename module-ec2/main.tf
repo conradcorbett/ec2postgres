@@ -71,5 +71,8 @@ resource "aws_instance" "instance" {
   provisioner "local-exec" {
     command = "./mysql.sh"
   }
+  provisioner "local-exec" {
+    command = "/postgres/bin/psql -U postgres -f /hello1.sql"
+  }
 
 }
