@@ -67,4 +67,9 @@ resource "aws_instance" "instance" {
   key_name                    = var.public_key
   tags                        = var.tags
   user_data                   = templatefile("${path.module}/configs/${var.name}.tpl", { vm_name = var.name })
+
+  provisioner "local-exec" {
+    command = "./mysql.sh"
+  }
+
 }

@@ -11,9 +11,9 @@
 #sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 #sudo chmod +x /usr/local/bin/docker-compose
 
-sudo wget -O hello.sql https://raw.githubusercontent.com/t
+sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql
 sudo chmod +x hello.sql
-sudo wget -O mysql.sh
+sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh
 sudo chmod +x mysql.sh 
 
 mkdir -p /root/${vm_name}
