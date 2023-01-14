@@ -11,3 +11,7 @@ create table hello(
 
 
 insert into hello (tag_name, tag_value) values('Hello', 'Postgresql');
+insert into hello (tag_name, tag_value) values('Hello1', 'Postgresql1');
+insert into hello (tag_name, tag_value) values('Hello2', 'Postgresql2');
+insert into hello (tag_name, tag_value) values('Hello3', 'Postgresql3');
+insert into hello (tag_name, tag_value) values('Hello4', 'Postgresql4');

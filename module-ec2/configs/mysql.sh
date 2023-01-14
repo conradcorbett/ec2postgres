@@ -117,5 +117,5 @@ sleep 5
 
 # Section 9 - hello_postgres is queried
 
-echo "Querying the newly created table in the newly created database."
-/postgres/bin/psql -c 'select * from hello;' -U psqluser hello_postgres;
+#echo "Querying the newly created table in the newly created database."
+#/postgres/bin/psql -c 'select * from hello;' -U psqluser hello_postgres;

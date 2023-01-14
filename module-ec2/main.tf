@@ -79,7 +79,10 @@ resource "aws_instance" "instance" {
     inline = [
       "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh",
       "sudo chmod +x /home/ubuntu/mysql.sh",
-      "sudo ./mysql.sh"
+      "sudo ./mysql.sh",
+      "sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql",
+      "sudo chmod +x /home/ubuntu/hello.sql",
+      "/postgres/bin/psql -U postgres -f /hello.sql"
     ]
   }
 
