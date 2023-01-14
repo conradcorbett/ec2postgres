@@ -69,19 +69,19 @@ resource "aws_instance" "instance" {
   user_data                   = templatefile("${path.module}/configs/${var.name}.tpl", { vm_name = var.name })
 
   provisioner "local-exec" {
-    command = <<-EOT
-      sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh
-      sudo chmod +x mysql.sh 
-      ./mysql.sh
-    EOT
+    command = "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh"
   }
-
+/*
   provisioner "local-exec" {
     command = <<-EOT
+
+      sudo chmod +x mysql.sh 
+      ./mysql.sh
+
       sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql
       sudo chmod +x hello.sql
       /postgres/bin/psql -U postgres -f /hello.sql
     EOT
   }
-
+*/
 }
