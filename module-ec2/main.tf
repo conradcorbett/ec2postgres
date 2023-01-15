@@ -26,7 +26,7 @@ data "aws_subnet" "subnet-seesquared-public" {
   }
 }
 
-resource "aws_security_group" "sg-mysql" {
+resource "aws_security_group" "sg-postgres" {
   name = "sg_${var.name}"
   vpc_id = var.vpc_id
   tags = {
@@ -42,9 +42,9 @@ resource "aws_security_group" "sg-mysql" {
     ipv6_cidr_blocks = []
   }
   ingress {
-    description      = "mysql"
-    from_port        = 3306
-    to_port          = 3306
+    description      = "postgres"
+    from_port        = 5432
+    to_port          = 5432
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = []
@@ -59,11 +59,11 @@ resource "aws_security_group" "sg-mysql" {
 }
 
 resource "aws_instance" "instance" {
-  instance_type               = "t2.micro"
+  instance_type               = "t2.small"
   ami                         = data.aws_ami.ubuntu.id
   subnet_id                   = data.aws_subnet.subnet-seesquared-public.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [ aws_security_group.sg-mysql.id ]
+  vpc_security_group_ids      = [ aws_security_group.sg-postgres.id ]
   key_name                    = var.public_key
   tags                        = var.tags
   user_data                   = templatefile("${path.module}/configs/${var.name}.tpl", { vm_name = var.name })
@@ -77,12 +77,12 @@ resource "aws_instance" "instance" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh",
-      "sudo chmod +x /home/ubuntu/mysql.sh",
-      "sudo ./mysql.sh",
+      "sudo wget -O postgre.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/postgres.sh",
+      "sudo chmod +x /home/ubuntu/postgres.sh",
+      "sudo ./postgres.sh",
       "sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql",
       "sudo chmod +x /home/ubuntu/hello.sql",
-      "/postgres/bin/psql -U postgres -f /hello.sql"
+      "/postgres/bin/psql -U postgres -f /home/ubuntu/hello.sql"
     ]
   }
 

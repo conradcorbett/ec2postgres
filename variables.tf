@@ -1,3 +1,3 @@
 variable "region" { default = "us-west-2" }
 variable "environment" { default = "test" }
-variable "app" { default = "mysql" }
+variable "app" { default = "postgres" }
