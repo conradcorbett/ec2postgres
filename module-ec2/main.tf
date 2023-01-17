@@ -77,7 +77,7 @@ resource "aws_instance" "instance" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo wget -O postgre.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/postgres.sh",
+      "sudo wget -O postgres.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/postgres.sh",
       "sudo chmod +x /home/ubuntu/postgres.sh",
       "sudo ./postgres.sh",
       "sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql",

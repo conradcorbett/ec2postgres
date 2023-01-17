@@ -122,8 +122,26 @@ sleep 5
 #echo "Running script"
 #$rfolder/bin/psql -U postgres -f hello1.sql
 
-
 # Section 9 - hello_postgres is queried
 
 #echo "Querying the newly created table in the newly created database."
 #/postgres/bin/psql -c 'select * from hello;' -U psqluser hello_postgres;
+#/postgres/bin/psql -c 'select * from hello;' -U postgres hello_postgres;
+
+#Helpful postgres commands
+#login as postgres user: psql -U postgres
+#list all databases: \l
+#quit: \q
+#login into hello_postgres DB as psqluser: psql hello_postgres -U psqluser
+#list tables: \dt
+#query table: select * from hello;
+#connect to new DB: \c [DBNAME] connect to new database, e.g., \c template1
+
+#Once postgres server is running, you will need to edit postgresql.conf and pg_hba.conf to allow remote connections
+#psql -c 'SHOW hba_file;' -U postgres;
+#add line for unsecure, use the line below instead of this one: hostnossl    all          all            0.0.0.0/0  trust    
+#add line once you've created psql user and db: host  all  all 0.0.0.0/0 md5
+#psql -c 'SHOW config_file;' -U postgres;
+#modify line: listen_addresses = '*'  
+#restart postgres: sudo -u postgres /postgres/bin/pg_ctl -D /postgres/data/db -l /postgres/data/logfilePSQL restart
+#connect to DB jane_db, with user jane, at host: psql jane_db -U jane -h 52.43.33.6
