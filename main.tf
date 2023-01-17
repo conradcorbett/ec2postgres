@@ -2,12 +2,6 @@ provider "aws" {
   region  = var.region
 }
 
-/*module "create_vpc" {
-  source             = "terraform-aws-modules/vpc/aws"
-  name               = "${var.app}-vpc"
-  cidr               = "10.0.0.0/16"
-}*/
-
 data "aws_vpc" "vpc-seesquared" {
   filter {
     name = "tag:Name"
@@ -20,5 +14,5 @@ module "ec2vm" {
   vpc_id            = data.aws_vpc.vpc-seesquared.id
   name              = "${var.app}-vm"
   tags              = { Owner = "conrad.corbett@hashicorp.com", Environment = "test", Name = "${var.app}-vm" }
-  public_key        = aws_key_pair.awskey.key_name
+  public_key        = aws_key_pair.aws_key.key_name
 }
