@@ -2,6 +2,23 @@ terraform {
   required_version = ">= 0.12"
 }
 
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name = "name"
+    #values = ["ubuntu/images/hvm-ssd/ubuntu-disco-19.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
 data "aws_subnet" "subnet-seesquared-public" {
   filter {
     name = "tag:Name"
@@ -9,12 +26,13 @@ data "aws_subnet" "subnet-seesquared-public" {
   }
 }
 
-resource "aws_security_group" "sg-flask" {
+resource "aws_security_group" "sg-postgres" {
   name = "sg_${var.name}"
   vpc_id = var.vpc_id
   tags = {
     Name = "sg-${var.name}"
   }
+
   ingress {
     description      = "ssh"
     from_port        = 22
@@ -42,7 +60,7 @@ resource "aws_security_group" "sg-flask" {
 
 resource "aws_instance" "instance" {
   instance_type               = "t2.small"
-  ami                         = "ami-0ceecbb0f30a902a6"
+  ami                         = data.aws_ami.ubuntu.id
   subnet_id                   = data.aws_subnet.subnet-seesquared-public.id
   associate_public_ip_address = true
   vpc_security_group_ids      = [ aws_security_group.sg-postgres.id ]
@@ -68,4 +86,23 @@ resource "aws_instance" "instance" {
     ]
   }
 
+
+
+/*
+  provisioner "local-exec" {
+    command = "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh"
+  }
+
+  provisioner "local-exec" {
+    command = <<-EOT
+
+      sudo chmod +x mysql.sh 
+      ./mysql.sh
+
+      sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql
+      sudo chmod +x hello.sql
+      /postgres/bin/psql -U postgres -f /hello.sql
+    EOT
+  }
+*/
 }
