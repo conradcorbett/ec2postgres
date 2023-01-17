@@ -141,7 +141,12 @@ sleep 5
 #psql -c 'SHOW hba_file;' -U postgres;
 #add line for unsecure, use the line below instead of this one: hostnossl    all          all            0.0.0.0/0  trust    
 #add line once you've created psql user and db: host  all  all 0.0.0.0/0 md5
+#sudo echo 'host  all  all 0.0.0.0/0 md5' >> /postgres/data/db/pg_hba.conf
+sudo sed -i '/Unix domain socket connections only/a host  all  all 0.0.0.0/0 md5' /postgres/data/db/pg_hba.conf
 #psql -c 'SHOW config_file;' -U postgres;
 #modify line: listen_addresses = '*'  
-#restart postgres: sudo -u postgres /postgres/bin/pg_ctl -D /postgres/data/db -l /postgres/data/logfilePSQL restart
+sudo sed -i "/Connection Settings -/a listen_addresses = \'*\'" /postgres/data/db/postgresql.conf
+sudo sed -i "/scram-sha-256 or md5/a password_encryption = md5" /postgres/data/db/postgresql.conf
+
+sudo -u postgres /postgres/bin/pg_ctl -D /postgres/data/db -l /postgres/data/logfilePSQL restart
 #connect to DB jane_db, with user jane, at host: psql jane_db -U jane -h 52.43.33.6

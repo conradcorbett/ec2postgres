@@ -1,7 +1,7 @@
 output "output" {
   value = <<README
 
-dockervm: ssh -i ~/awskey.pem ubuntu@${module.ec2vm.public_ip}
+postgressvm: ssh -i ~/awskey.pem ubuntu@${module.ec2vm.public_ip}
 
 README
 }
