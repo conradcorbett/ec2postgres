@@ -68,23 +68,4 @@ resource "aws_instance" "instance" {
     ]
   }
 
-
-
-/*
-  provisioner "local-exec" {
-    command = "sudo wget -O mysql.sh https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/mysql.sh"
-  }
-
-  provisioner "local-exec" {
-    command = <<-EOT
-
-      sudo chmod +x mysql.sh 
-      ./mysql.sh
-
-      sudo wget -O hello.sql https://raw.githubusercontent.com/conradcorbett/ec2postgres/master/module-ec2/configs/hello.sql
-      sudo chmod +x hello.sql
-      /postgres/bin/psql -U postgres -f /hello.sql
-    EOT
-  }
-*/
 }
